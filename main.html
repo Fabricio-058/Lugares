@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>main</title>
+        <meta charset="utf-8">
+ <script src="material.min.js"></script>
+            <link rel="stylesheet" type="text/css" href="material.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+</head>
+<body>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+ <header class="mdl-layout__header mdl-color--green">
+    <div class="mdl-layout__header-row">
+        <div class="mdl-layout-spacer"></div>
+              <span class="mdl-layout-title">Nuevo lugar</span>
+        <div class="mdl-layout-spacer"></div>
+      <!-- Navigation. We hide it in small screens. -->
+        <button id="demo-menu-lower-right"
+        class="mdl-button mdl-js-button mdl-button--icon">
+  <i class="material-icons">more_vert</i>
+</button>
+
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+    for="demo-menu-lower-right">
+  <li class="mdl-menu__item"><a class="mdl-navigation__link mdl-color-text--black" href="">Cerrar sesión</a></li>
+  <li class="mdl-menu__item"><a class="mdl-navigation__link mdl-color-text--black" href="">Acerca de</a></li>
+
+</ul>
+    </div>
+  </header>
+  <div class="mdl-layout__drawer mdl-color--blue-50">
+    <span class="mdl-layout-title mdl-color--green mdl-color-text--white"> Menu</span>
+    <nav class="mdl-navigation ">
+      <a class="mdl-navigation__link" href="main.html"><i class="material-icons mdl-color-text--blue" role="presentation">location_on</i> Nuevo lugar</a>
+      <a class="mdl-navigation__link" href="lugares.html"><i class="material-icons mdl-color-text--blue" role="presentation">save</i>lugares guardados</a>
+      <a class="mdl-navigation__link" href="login.html"><i class="material-icons mdl-color-text--blue" role="presentation">exit_to_app</i> salir</a>
+    </nav>
+  </div>
+
+    
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="geolocalizar()">Localiza este lugar</button><br>
+    <img id="mapa"><br>
+
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label caja">
+    <input class="mdl-textfield__input" type="text" id="nombre">
+    <label class="mdl-textfield__label" for="sample3">Nombre...</label>
+  </div><br>
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label caja">
+    <input class="mdl-textfield__input" type="text" id="precio">
+    <label class="mdl-textfield__label" for="sample3">Precio...</label>
+  </div><br>
+    
+    Categoria<br>
+	<select id="categoria" name="Seleciione una categoria"><br>
+ 		<option>Otra</option>
+ 		<option>Tranporte</option>
+ 		<option>Compras</option>
+ 		<option>Hospedaje</option>
+		<option>Turismo y museos</option>
+ 		<option>Ocio</option>
+ 		<option selected>Bares y Restaurantes</option>
+ 	</select><br>
+
+	Caficiacion<br>
+	<input id="calificacion" type="range" min="1" max="5"><br>
+
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="guardar()">Guardar</button><br>
+<script>
+    var coordenadas;
+        function geolocalizar(){
+            navigator.geolocation.getCurrentPosition(verPosicion);
+        }
+         contador = localStorage.getItem('contador');
+        function verPosicion(posicion){
+            mapa = document.getElementById('mapa');
+            mapa.src="http://maps.googleapis.com/maps/api/staticmap?center="+posicion.coords.latitude + ',' + posicion.coords.longitude+"&zoom=15&size=500x500&markers=color:red%7Clabel:YO!%7c"+posicion.coords.latitude + ','+ posicion.coords.longitude;
+           coordenadas=posicion.coords.latitude+","+posicion.coords.longitude;
+           
+            localStorage.setItem('latitud'+contador,posicion.coords.latitude);
+            localStorage.setItem('longitud'+contador,posicion.coords.longitude);        }
+
+    
+    </script>
+<script>
+var contador;
+function guardar() {
+    var a = document.getElementById("calificacion").value;
+    var b = document.getElementById("nombre").value;
+    var c = document.getElementById("precio").value;
+    var d = document.getElementById("categoria").value;
+    contador = localStorage.getItem('contador');
+
+    localStorage.setItem('lugar'+contador,b);
+    localStorage.setItem('precio'+contador,c);
+    localStorage.setItem('calificacion'+contador,a);
+    localStorage.setItem('categoria'+contador,d);
+    contador++;
+    localStorage.setItem('contador',contador); 
+    window.location.assign('lugares.html');
+
+}
+</script>
+</div>
+</body>
+</html>

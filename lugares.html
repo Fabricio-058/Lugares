@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" type="text/css" href="material.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <script src="material.min.js"></script>
+
+
+	<title></title>
+</head>
+<script>
+  window.addEventListener('load', cargarNotas, true);
+        
+        function cargarNotas(){
+            
+            document.getElementById('lugares').innerHTML = "";
+            cont = localStorage.getItem('contador');
+            
+            for(i=1; i<cont; i++){
+                contenedorLugares = document.getElementById('lugares');
+                
+                latitud = localStorage.getItem('latitud'+i);
+                longitud = localStorage.getItem('longitud'+i);
+                lugar = localStorage.getItem('lugar'+i);
+                precio = localStorage.getItem('precio'+i);
+                calificacion = localStorage.getItem('calificacion'+i);
+                categoria = localStorage.getItem('categoria'+i);
+                
+                contenedorLugares.innerHTML +="<div class='lugares-guardados'>" + "<img src='http://maps.google.com/maps/api/staticmap?center="+latitud+","+longitud+"&zoom=15&markers="+latitud+","+longitud+"&size=220x175'>" +"<p>Lugar: "+lugar+"</p>"+"<p>Precio: "+precio+"</p>"+"<p>Calificación: "+calificacion+"</p>"+"<p>Categoría: "+categoria+"</p>"+"</div>";
+                
+                
+
+            }
+
+        }
+</script>
+<body>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+ <header class="mdl-layout__header mdl-color--green">
+    <div class="mdl-layout__header-row">
+        <div class="mdl-layout-spacer"></div>
+              <span class="mdl-layout-title">Lugares guardados</span>
+        <div class="mdl-layout-spacer"></div>
+      <!-- Navigation. We hide it in small screens. -->
+        <button id="demo-menu-lower-right"
+        class="mdl-button mdl-js-button mdl-button--icon">
+  <i class="material-icons">more_vert</i>
+</button>
+
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+    for="demo-menu-lower-right">
+  <li class="mdl-menu__item"><a class="mdl-navigation__link mdl-color-text--black" href="">Cerrar sesión</a></li>
+  <li class="mdl-menu__item"><a class="mdl-navigation__link mdl-color-text--black" href="">Acerca de</a></li>
+
+</ul>
+    </div>
+  </header>
+  <div class="mdl-layout__drawer mdl-color--blue-50">
+    <span class="mdl-layout-title mdl-color--green mdl-color-text--white"> Menu</span>
+    <nav class="mdl-navigation ">
+      <a class="mdl-navigation__link" href="main.html"><i class="material-icons mdl-color-text--blue" role="presentation">location_on</i> Nuevo lugar</a>
+      <a class="mdl-navigation__link" href="lugares.html"><i class="material-icons mdl-color-text--blue" role="presentation">save</i>lugares guardados</a>
+      <a class="mdl-navigation__link" href="login.html"><i class="material-icons mdl-color-text--blue" role="presentation">exit_to_app</i> salir</a>
+    </nav>
+  </div>
+    <div id="lugares">
+    </div>
+ </div>
+
+</body>
+</body>
+</html>
